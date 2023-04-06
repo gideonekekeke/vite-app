@@ -1,12 +1,20 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import React, { useEffect } from "react";
+import { useNavigate, RouterProvider, Navigate } from "react-router-dom";
+import { element } from "./routes/AllRoutes";
+import { decoder } from "./routes/TokenDecoder";
 
-function App() {
-	const [count, setCount] = useState(0);
+const App = () => {
+	const token = window.localStorage.getItem("tokenUser");
+	const navigate = useNavigate();
 
-	return <div className='App'>hello</div>;
-}
+	useEffect(() => {
+		const decoders: any = decoder(token);
+		if (decoders?._id) {
+			navigate("/dashboard");
+		}
+	}, [token]);
+
+	return <RouterProvider router={element} />;
+};
 
 export default App;
