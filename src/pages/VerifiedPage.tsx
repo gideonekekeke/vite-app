@@ -6,8 +6,8 @@ const VerifiedPage = () => {
 	localStorage.setItem("tokenUser", token || "");
 	return (
 		<div style={{ marginTop: "200px" }}>
-			<h3> Google Account Verification Complete</h3>
-			<p>Your google account has been activated successfully </p>
+			<h3> Oauth Account Verification Complete</h3>
+			<p>Your Oauth account has been activated successfully </p>
 			<Link to='/dashboard'>
 				<button>Continue</button>
 			</Link>

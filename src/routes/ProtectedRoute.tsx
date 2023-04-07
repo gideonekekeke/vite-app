@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children }: any) => {
 		const decodingToken: any = decoder(getToken);
 
 		if (decodingToken.exp < Date.now() / 1000) {
-			<Navigate to='/signup' />;
+			return <Navigate to='/signup' />;
 		} else {
 			return children;
 		}

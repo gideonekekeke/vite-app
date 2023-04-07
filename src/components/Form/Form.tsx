@@ -70,6 +70,10 @@ const Form = () => {
 		window.open("http://localhost:1400/auth/google", "_self");
 	};
 
+	const OnGithubSignUp = () => {
+		window.open("http://localhost:1400/auth/github", "_self");
+	};
+
 	return (
 		<Paper
 			style={{
@@ -86,7 +90,9 @@ const Form = () => {
 				<Button onClick={OnGoogleSignUp} radius='xl'>
 					Google
 				</Button>
-				<Button radius='xl'>Twitter</Button>
+				<Button onClick={OnGithubSignUp} radius='xl'>
+					Github
+				</Button>
 			</Group>
 
 			<Divider label='Or continue with email' labelPosition='center' my='lg' />

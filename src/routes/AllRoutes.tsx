@@ -44,6 +44,7 @@ export const element = createBrowserRouter([
 				<DashLayout />
 			</ProtectedRoute>
 		),
+
 		children: [
 			{
 				index: true,
