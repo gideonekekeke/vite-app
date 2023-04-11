@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { decoder } from "./TokenDecoder";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import SignUp from "../pages/SignUp";
 
-const ProtectedRoute = ({ children }: any) => {
+const ProtectedRoute = () => {
 	const getToken = window.localStorage.getItem("tokenUser" || "");
 
 	if (getToken) {
@@ -13,10 +13,10 @@ const ProtectedRoute = ({ children }: any) => {
 		if (decodingToken.exp < Date.now() / 1000) {
 			return <Navigate to='/signup' />;
 		} else {
-			return children;
+			return <Outlet />;
 		}
 	} else {
-		return <SignUp />;
+		return <Navigate to='/signup' />;
 	}
 };
 

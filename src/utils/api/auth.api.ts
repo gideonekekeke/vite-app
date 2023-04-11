@@ -7,17 +7,22 @@ type IUser = {
 	password: string;
 };
 
+type RegisterUserResponseType = {
+	message: string;
+};
+
 // const Navigate = useNavigate();
 
-export const registerUser = async (data: IUser) => {
-	await axios
-		.post("/api/auth/register", data)
-		.then((res) => {
-			alert(res.data.message);
-		})
-		.catch((err) => {
-			alert(err.response.data.message);
-		});
+export const registerUser = async (
+	data: IUser,
+): Promise<RegisterUserResponseType> => {
+	try {
+		const url = "/api/auth/register";
+		const response = await axios.post(url, data);
+		return response.data;
+	} catch (err) {
+		throw err;
+	}
 };
 
 export const LoginUser = async (data: IUser) => {

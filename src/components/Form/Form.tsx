@@ -14,11 +14,13 @@ import {
 	Stack,
 } from "@mantine/core";
 import { LoginUser, registerUser } from "../../utils/api";
+import React from 'react'
 
 // import { GoogleButton, TwitterButton } from "../SocialButtons/SocialButtons";
 
 const Form = () => {
 	const [type, toggle] = useToggle(["login", "register"]);
+	const [loading, setLoading] = React.useState<boolean>(false)
 	const form = useForm({
 		initialValues: {
 			email: "",
@@ -52,11 +54,23 @@ const Form = () => {
 	};
 
 	const OnRegister = async () => {
-		const res = registerUser({
-			name: form.values.name,
-			email: form.values.email,
-			password: form.values.password,
-		});
+		setLoading(true)
+		const { name, email, password } = form.values;
+		const payload: IUser = {
+			name,
+			email,
+			password,
+		};
+
+		try {
+			const response = await registerUser(payload);
+			console.log(response);
+			
+		} catch (err) {
+			console.log(err);
+		}finally{
+			setLoading(false)
+		}
 	};
 
 	const OnLogin = async () => {
@@ -64,6 +78,18 @@ const Form = () => {
 			email: form.values.email,
 			password: form.values.password,
 		});
+	};
+
+	const handleSubmit = (e: any) => {
+		e.preventDefault();
+
+		if (type === "register") {
+			console.log("submitted");
+			OnRegister();
+		} else {
+			console.log("sub");
+			OnLogin();
+		}
 	};
 
 	const OnGoogleSignUp = () => {
@@ -97,16 +123,7 @@ const Form = () => {
 
 			<Divider label='Or continue with email' labelPosition='center' my='lg' />
 
-			<form
-				onSubmit={form.onSubmit(() => {
-					if (type === "register") {
-						console.log("submitted");
-						OnRegister();
-					} else {
-						console.log("sub");
-						OnLogin();
-					}
-				})}>
+			<form onSubmit={handleSubmit}>
 				<Stack>
 					{type === "register" && (
 						<TextInput
